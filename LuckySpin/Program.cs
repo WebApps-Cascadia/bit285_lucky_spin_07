@@ -1,25 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+﻿var builder = WebApplication.CreateBuilder(args);
 
-namespace LuckySpin
+/* Install Services using the builder.Services methods
+ */
+
+//Enable MVC and DIJ Services for this application
+builder.Services.AddMvc();
+builder.Services.AddTransient<LuckySpin.Services.TextTransform>();
+builder.Services.AddSingleton<LuckySpin.Services.Repository>();
+
+
+var app = builder.Build();
+
+
+/* Middleware in the HTTP Request Pipeline
+ */
+app.UseStaticFiles();
+
+if (!app.Environment.IsDevelopment())
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            BuildWebHost(args).Run();
-        }
-
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .Build();
-    }
+    app.UseExceptionHandler("/Spinner/Error");
 }
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller}/{action}/",
+    defaults: new
+    {
+        controller = "Spinner",
+        action = "Index"
+    });
+
+app.Run();
+
+

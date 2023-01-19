@@ -1,7 +1,7 @@
 ﻿using System;
 namespace LuckySpin.Services
 {
-    public class TextTransformService
+    public class TextTransform
     {
         public string numberToText(int number)
         {

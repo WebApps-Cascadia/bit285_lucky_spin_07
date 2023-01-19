@@ -10,11 +10,11 @@ namespace LuckySpin.Controllers
 {
     public class SpinnerController : Controller
     {
-        private RepositoryService repoService;
+        private Repository repoService;
         /***
          * Constructor
          **/
-        public SpinnerController(RepositoryService repoService)
+        public SpinnerController(Repository repoService)
         {
             this.repoService = repoService;
         }

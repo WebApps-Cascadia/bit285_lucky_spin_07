@@ -13,5 +13,9 @@
     <Folder Include="Views\" />
     <Folder Include="Views\Spinner\" />
     <Folder Include="wwwroot\css\" />
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="ViewModels\" />
   </ItemGroup>
 </Project>

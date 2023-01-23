@@ -1,13 +1,18 @@
-﻿@model IEnumerable<LuckySpin.Models.Spin>
+﻿@model LuckySpin.ViewModels.LuckList
 @{
     Layout = "_Layout";
 }
-<h1>All Your Luck</h1>
+<h1>All Your Luck, @Model.Player.FirstName</h1>
 <table>
-    <thead><tr><th>Name</th><th>Luck</th><th>Result</th></tr></thead>
+    <thead><tr><th>Luck</th><th>Result</th><th>Balance</th></tr></thead>
     <tbody>
-        @foreach( LuckySpin.Models.Spin spin in @Model ){
-            <tr><td>@spin.Player.FirstName</td><td>@spin.Player.Luck</td><td>@spin.IsWinning</td></tr>
+        @foreach (LuckySpin.Models.Spin spin in Model.Spins)
+        {
+            <tr>
+                <td>@Model.Player.Luck</td>
+                <td>@spin.IsWinning</td>
+                <td>@spin.Player.Balance</td>
+            </tr>
         }
     </tbody>
 </table>

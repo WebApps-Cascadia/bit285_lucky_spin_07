@@ -2,16 +2,16 @@
 @{
     Layout = "_Layout";
 }
-<h1>All Your Luck</h1>
+<h1>All Your Luck, @Model.Player.FirstName</h1>
 <table>
-    <thead><tr><th>Name</th><th>Winner</th><th>Balance</th></tr></thead>
+    <thead><tr><th>Spin</th><th>Winner</th><th>Balance</th></tr></thead>
     <tbody>
-        @foreach (LuckySpin.ViewModels.PlayerSpin playerspin in Model.PlayerSpins)
+        @foreach (LuckySpin.ViewModels.SpinBalance playerspin in Model.SpinBalances)
             {
             <tr>
-                <td>@playerspin.Spin.Player.FirstName</td>
+                <td>@playerspin.Spin.Numbers[0], @playerspin.Spin.Numbers[1], @playerspin.Spin.Numbers[2]</td>
                 <td>@playerspin.Spin.IsWinning</td>
-                <td>@playerspin.balance</td>
+                <td>@playerspin.Balance</td>
             </tr>
         }
     </tbody>

@@ -3,10 +3,10 @@ using LuckySpin.Models;
 
 namespace LuckySpin.ViewModels
 {
-    public class PlayerSpin
+    public class SpinBalance
     {
         public Spin Spin { get; set; }
-        public decimal balance { get; set; }
+        public decimal Balance { get; set; }
 
     }
 }

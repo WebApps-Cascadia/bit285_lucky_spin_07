@@ -7,36 +7,28 @@ namespace LuckySpin.Services
 {
     public class Repository
     {
-        private List<PlayerSpin> spins = new List<PlayerSpin>();
+        private List<SpinBalance> playerSpins = new List<SpinBalance>();
      
         //Properties
         public Player Player { get; set; }
-
-        public IEnumerable<PlayerSpin> PlayerSpins {
-            get { return spins; }
+        public IEnumerable<SpinBalance> SpinBalances {
+            get { return playerSpins; }
         }
 
-        public decimal CurrentBalance
-        {
-            get {
-                PlayerSpin? playerSpin = spins.LastOrDefault<PlayerSpin>();
-                return playerSpin?.balance ?? Player.Balance;
-               
-            }
-        }
 
         //Access method
-        public void AddSpinBalance(Spin s, decimal b)
+        public void AddSpinBalance(Spin spin, decimal balance)
         {
-            spins.Add(new PlayerSpin
+            playerSpins.Add(new SpinBalance
             {
-                Spin = s,
-                balance = b
+                Spin = spin,
+                Balance = balance
             });
         }
-        public void StartGame()
+        //Game Reset
+        public void ResetGame()
         {
-            spins.Clear();
+            playerSpins.Clear();
         }
 
     }

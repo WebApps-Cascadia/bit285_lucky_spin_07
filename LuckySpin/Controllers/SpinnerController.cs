@@ -19,11 +19,11 @@ namespace LuckySpin.Controllers
          * 2) In the Constructor, call for a DIJ Repository object to be passed to the constructor
          **/
         private Repository repository;
-        private decimal balance;
+        private decimal currentBalance;
 
         public SpinnerController(Repository repository)
         {
-            // 3) save the DIJ Repository object into your instance variable
+            // 3) TODO: save the DIJ Repository object into your instance variable
             this.repository = repository;
         }
 
@@ -45,19 +45,18 @@ namespace LuckySpin.Controllers
             repository.Player = player;
 
             //Start a new Game
-            repository.StartGame();
+            repository.ResetGame();
 
-            return RedirectToAction("Spin", player);
+            return RedirectToAction("Spin");
         }
 
         /***
          * Spin Action
-         **/  
-               
-        public IActionResult Spin(Player player)
+         **/       
+        public IActionResult Spin()
         {
             //Create a new Spin with the player
-            Spin spin = new Spin { Player = player };
+            Spin spin = new Spin { Player = repository.Player };
 
             /**
              * GAME PLAY LOGIC TODOs
@@ -69,32 +68,30 @@ namespace LuckySpin.Controllers
              *       - if so, increase the balance by $1
              *       - go onto step 3
              * 
-             *   3) Display the Spin View
-             *       - Add the new Spin to the repository
-             *       - Add the new balance to the repository
+             *   3) Update the repository with the new Spin, balance and Player info
+             *       - Add a new SpinBalance record for this Spin
+             *       - Update the Player object with the current balance 
              *       - go to the Spin View
              */
 
-            
-            balance = repository.CurrentBalance;
+            //Get the Player's current balance from the repository
+            currentBalance = repository.Player.Balance;
             
             //TODO: Step 1
-            if (balance < 0.50m)
+            if (currentBalance < 0.50m)
             {
-                return RedirectToAction("LuckList",
-                    new LuckList {
-                        PlayerSpins = repository.PlayerSpins
-                    });
+                return RedirectToAction("LuckList");
             }
-            else { balance -= 0.50m; }
+            else { currentBalance -= 0.50m; }
 
             //TODO: Step 2
             if (spin.IsWinning) {
-                balance += 1.00m;
+                currentBalance += 1.00m;
             }
 
             //TODO: Step 3
-            repository.AddSpinBalance(spin,balance);
+            repository.AddSpinBalance(spin, currentBalance);
+            repository.Player.Balance = currentBalance;
             return View("Spin", spin);
         }
 
@@ -104,13 +101,12 @@ namespace LuckySpin.Controllers
         [HttpGet]
         public IActionResult LuckList()
         {
-            //Create a new LuckList ViewModel
-            LuckList luckList = new LuckList
+            //TODO: Pass the repository's SpinBalances list and Player as a new LuckList to the View
+            return View(new LuckList
             {
-                PlayerSpins = repository.PlayerSpins
-            };
-            //TODO: Pass the repository's Player Spins to the LuckList View
-            return View(luckList);
+                SpinBalances = repository.SpinBalances,
+                Player = repository.Player
+            });
         }
 
     }

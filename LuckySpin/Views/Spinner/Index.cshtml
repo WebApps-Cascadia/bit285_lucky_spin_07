@@ -8,8 +8,8 @@
 <form asp-action="Index" asp-controller="Spinner">
     <fieldset>
         <label>
-            <input placeholder=" Your First Name" />
-            <span></span>
+            <input asp-for="FirstName" placeholder=" Your First Name" />
+            <span asp-validation-for="FirstName"></span>
         </label>
         <label>
             <select asp-for="Luck">
@@ -28,9 +28,9 @@
             <span asp-validation-for="Luck"></span>
         </label>
         <label asp-for="Balance">
-            <input asp-for="Balance" placeholder="Feeling Lucky?"/>
+            <input asp-for="Balance" placeholder=" 3 to 10"/>
             <span asp-validation-for="Balance"></span>
         </label>
     </fieldset>
-    <input type="submit" value="Start the Game" />
+    <input type="submit" value="Start Betting" />
 </form>

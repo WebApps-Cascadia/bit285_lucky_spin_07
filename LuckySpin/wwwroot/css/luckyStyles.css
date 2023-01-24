@@ -23,6 +23,13 @@ div {
        margin:2px;
        text-align:center;
 }
+div#balance {
+    display: block;
+    font-size: 1.2em;
+    width: fit-content;
+    padding: .2em .5em;
+    margin: .5em 0;
+}
 input:not([type]), input[type='text'], input[type='password'], option {
     border-radius: 8px;
     border: solid 2px rosybrown;
@@ -53,6 +60,8 @@ img {
     border-top-right-radius: 50% 50%;
     border-bottom-right-radius: 50% 50%;
     border-bottom-left-radius: 50% 50%;
+    width:140px;
+    margin-left:20px;
 }
 
 .field-validation-error {

@@ -6,8 +6,10 @@ namespace LuckySpin.ViewModels
 {
     public class LuckList
     {
-        public IEnumerable<Spin> Spins { get; set; }
-        public Player Player { get; set; }
+        public IEnumerable<PlayerSpin> PlayerSpins { get; set; }
+        public IEnumerable<decimal> Wallet { get; set; }
     }
+
+
 
 }

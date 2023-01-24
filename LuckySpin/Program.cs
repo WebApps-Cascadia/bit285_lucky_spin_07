@@ -6,6 +6,7 @@
 //Enable MVC and DIJ Services for this application
 builder.Services.AddMvc();
 builder.Services.AddTransient<LuckySpin.Services.TextTransform>();
+builder.Services.AddSingleton<LuckySpin.Services.Repository>();
 
 
 var app = builder.Build();

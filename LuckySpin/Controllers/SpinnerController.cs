@@ -55,7 +55,7 @@ namespace LuckySpin.Controllers
          public IActionResult Spin(long id) 
         {
             //TODO: Use Lambda Extention method instead of Find
-            Player player = _dbc.Players.Find(id);
+            Player player = _dbc.Players.Include(p => p.Spins).Single(p => p.PlayerId == id);
             //Player player = _dbc.Players.Include().Single();
 
             //Intializes the spinItVM with the player object from the database
@@ -83,9 +83,10 @@ namespace LuckySpin.Controllers
             };
 
             //TODO: Comment out the line below that Adds spin to the general Spins collection
-            _dbc.Spins.Add(spin);
+            //_dbc.Spins.Add(spin);
             //TODO: Instead add the spin to this player's collection called "Spins"
             //player.
+            player.Spins.Add(spin);
 
             _dbc.SaveChanges();
 
@@ -99,14 +100,14 @@ namespace LuckySpin.Controllers
          public IActionResult LuckList(long id)
         {
             //TODO: Use Include and Single methods instead of Find (don't copy/paste)
-            Player player = _dbc.Players.Find(id);
+            Player player = _dbc.Players.Include(p => p.Spins).Single(p => p.PlayerId == id);
 
 
             LuckListVM luckListVM = new LuckListVM
             {
                 Player = player,
                 //TODO: Send the View only the player's Spins instead of ALL spins
-                Spins = _dbc.Spins
+                Spins = player.Spins
              
             };
             return View(luckListVM);

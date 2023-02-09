@@ -6,9 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMvc();
 builder.Services.AddTransient<LuckySpin.Services.TextTransform>();
 //TODO: Initialize the connection and DBC options for your particular OS
-var connection = builder.Configuration.GetConnectionString("LuckySpinDbX");
+var connection = builder.Configuration.GetConnectionString("LuckySpinDbMac");
 builder.Services.AddDbContext<LuckySpin.Models.LuckySpinDbc>( options =>
-    options.UseSqlX(connection));
+    options.UseSqlite(connection));
 
 var app = builder.Build();
 

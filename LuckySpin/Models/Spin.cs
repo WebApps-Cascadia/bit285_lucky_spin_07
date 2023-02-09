@@ -7,5 +7,6 @@ namespace LuckySpin.Models
         public long SpinId { get; set; }
         public Boolean IsWinning { get; set; }
         public decimal Balance { get; set; }
+       
     }
 }

@@ -10,7 +10,7 @@ namespace LuckySpin.Models
         public String FirstName { get; set; }
         public int Luck { get; set; }
         public Decimal Balance { get; set; }
-
+        public ICollection<Spin> Spins { get; set; }
         //TODO: adds the navigation property (relation) between the two Entities
         
     }

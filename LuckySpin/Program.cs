@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,9 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMvc();
 builder.Services.AddTransient<LuckySpin.Services.TextTransform>();
 //TODO: Initialize the connection and DBC options for your particular OS
-var connection = builder.Configuration.GetConnectionString("LuckySpinDbX");
+var connection = builder.Configuration.GetConnectionString("LuckySpinDbWin");
 builder.Services.AddDbContext<LuckySpin.Models.LuckySpinDbc>( options =>
-    options.UseSqlX(connection));
+    options.UseSqlServer(connection));
 
 var app = builder.Build();
 

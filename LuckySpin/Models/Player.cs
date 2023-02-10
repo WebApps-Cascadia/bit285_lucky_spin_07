@@ -12,6 +12,7 @@ namespace LuckySpin.Models
         public Decimal Balance { get; set; }
 
         //TODO: adds the navigation property (relation) between the two Entities
+        public ICollection<Spin> Spins { get; set; }
         
     }
 }

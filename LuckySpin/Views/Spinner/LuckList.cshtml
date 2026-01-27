@@ -1,17 +1,20 @@
-﻿@model LuckySpin.ViewModels.LuckList
+﻿@model LuckySpin.Services.Repository
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     Layout = "_Layout";
 }
-<h1>All Your Luck, @Model.Player.FirstName</h1>
+<h1>Out of Luck, @Model.Player.FirstName</h1>
+<a asp-action="Index">Start New Game</a>
+<h2>Here is a list of your spins:</h2>
 <table>
     <thead><tr><th>Spin</th><th>Winner</th><th>Balance</th></tr></thead>
     <tbody>
-        @foreach (LuckySpin.ViewModels.SpinBalance playerspin in Model.SpinBalances)
+        @foreach (LuckySpin.Models.Spin spin in Model.Game.Spins)
             {
             <tr>
-                <td>@playerspin.Spin.Numbers[0], @playerspin.Spin.Numbers[1], @playerspin.Spin.Numbers[2]</td>
-                <td>@playerspin.Spin.IsWinning</td>
-                <td>@playerspin.Balance</td>
+                <td>@spin.Numbers[0], @spin.Numbers[1], @spin.Numbers[2]</td>
+                <td>@(spin.isWinning(@Model.Player) ? "Win" : "Lose")</td>
+                <td>@spin.BalanceAfterSpin</td> <!--BONUS-->
             </tr>
         }
     </tbody>

@@ -7,6 +7,8 @@ namespace LuckySpin.Models
         Random random = new Random();
         private int[] numbers; //a spin array;
 
+        //BONUS
+        public decimal BalanceAfterSpin { get; set; }
         //Constructor
         public Spin()
         {
@@ -19,12 +21,11 @@ namespace LuckySpin.Models
             get { return numbers; }
         } 
      
-        public bool IsWinning //Read only - true if Player's Luck is one of the numbers
+        //Spin Method   
+        public bool isWinning(Player player) //Read only - true if Player's Luck is one of the numbers
         {
-            get { return numbers.Contains(Player.Luck); }
+            return (player == null) ?  false : numbers.Contains(player.Luck);
         }
-
-        public Player Player { get; set; } //Read-Write set as needed in the controller
     }
 
 }

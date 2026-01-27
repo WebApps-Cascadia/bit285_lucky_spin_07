@@ -1,35 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using LuckySpin.Models;
-using LuckySpin.ViewModels;
+﻿using LuckySpin.Models;
 
 namespace LuckySpin.Services
 {
     public class Repository
-    {
-        private List<SpinBalance> playerSpins = new List<SpinBalance>();
-     
-        //Properties
-        public Player Player { get; set; }
-        public IEnumerable<SpinBalance> SpinBalances {
-            get { return playerSpins; }
-        }
+    {   
+        /**
+         * NOTE: The repository will eventually be the interface to a database
+         *       and will store and retrieve Player and Game data from the database records.
+         *      For now, it just holds the references to the current Player and Game in memory
+         **/
 
+        public required Player Player { get; set; }
+        //TODO: Add the Game Model
+        public required Game Game { get; set; }
+        
 
-        //Access method
-        public void AddSpinBalance(Spin spin, decimal balance)
-        {
-            playerSpins.Add(new SpinBalance
-            {
-                Spin = spin,
-                Balance = balance
-            });
-        }
-        //Game Reset
-        public void ResetGame()
-        {
-            playerSpins.Clear();
-        }
 
     }
 

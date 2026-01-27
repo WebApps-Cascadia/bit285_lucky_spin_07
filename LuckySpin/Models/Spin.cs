@@ -7,8 +7,8 @@ namespace LuckySpin.Models
         Random random = new Random();
         private int[] numbers; //a spin array;
 
-        //BONUS
-        public decimal BalanceAfterSpin { get; set; }
+        //TODO: Add another property to hold the player balance after spin is completed
+        public decimal RunningBalance { get; set; }
         //Constructor
         public Spin()
         {

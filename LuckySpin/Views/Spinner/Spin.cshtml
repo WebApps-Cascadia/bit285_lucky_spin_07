@@ -8,7 +8,7 @@
 }
 <h1>Lucky Spin</h1>
 <button onclick='history.go(0)'>Spin</button> <div>@Model.Numbers[0]</div><div>@Model.Numbers[1]</div><div>@Model.Numbers[2]</div>
-<div id="balance">Current Balance: @Repository.Player.Balance </div>
+<div id="balance">Running Balance: @Repository.Player.Balance </div>
 <span style="@Display">
     <h2>Congratulations, @Repository.Player.FirstName<br/>You Win with Lucky @TTransform.numberToText(Repository.Player.Luck)!</h2>
     <img src="/Images/LuckySpinCoins.jpg" class="animated bounce" alt="Coins" />

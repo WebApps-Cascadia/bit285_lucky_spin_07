@@ -9,12 +9,13 @@
 <table>
     <thead><tr><th>Spin</th><th>Winner</th><th>Balance</th></tr></thead>
     <tbody>
+        <!--TODO: display the running balance for each spin -->
         @foreach (LuckySpin.Models.Spin spin in Model.Game.Spins)
             {
             <tr>
                 <td>@spin.Numbers[0], @spin.Numbers[1], @spin.Numbers[2]</td>
                 <td>@(spin.isWinning(@Model.Player) ? "Win" : "Lose")</td>
-                <td>@spin.BalanceAfterSpin</td> <!--BONUS-->
+                <td>@spin.RunningBalance</td> 
             </tr>
         }
     </tbody>

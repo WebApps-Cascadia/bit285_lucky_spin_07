@@ -22,7 +22,7 @@ namespace LuckySpin.Models
         } 
      
         //Spin Method   
-        public bool isWinning(Player player) //Read only - true if Player's Luck is one of the numbers
+        public bool isWinning(Player player) //true if Player's Luck is one of the numbers
         {
             return (player == null) ?  false : numbers.Contains(player.Luck);
         }

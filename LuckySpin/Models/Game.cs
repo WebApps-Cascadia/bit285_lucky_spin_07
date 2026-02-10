@@ -13,13 +13,14 @@ namespace LuckySpin.Models
     public class Game
     {
         //Instance Variables
-        private List<Spin> _spins = new List<Spin>(); //NOTE: This is an in-memory list of spins
+        //private List<Spin> _spins = new List<Spin>(); //NOTE: This is an in-memory list of spins
+
 
         //Game Properties
+        public int Id { get; set; }
         public Player? Player { get; set; } //The Player playing this Game
-        public IEnumerable<Spin> Spins { //Read only - the spins in the game
-            get { return _spins; }
-        }
+        public ICollection<Spin> Spins { get; set; } = new List<Spin>(); //The list of Spins for this Game
+
         public decimal PlayCost { //Read only - the cost to play a spin
             get { return 0.50m; }
         }
@@ -39,7 +40,7 @@ namespace LuckySpin.Models
                     Status = GameStatus.Won;
                 }
 
-                AddSpin(spin);
+                //AddSpin(spin);
             }
             else
             {
@@ -54,11 +55,11 @@ namespace LuckySpin.Models
         }
         public void AddSpin(Spin s)
         {
-            _spins.Add(s);
+            Spins.Add(s);
         }
         public void Reset()
         {
-            _spins.Clear();
+            Spins.Clear();
             Status = GameStatus.Idle;
         }
     }

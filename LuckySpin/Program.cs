@@ -1,4 +1,6 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using Microsoft.EntityFrameworkCore;
+
+var builder = WebApplication.CreateBuilder(args);
 
 /* Install Services using the builder.Services methods
  */
@@ -6,8 +8,9 @@
 //Enable MVC and DIJ Services for this application
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<LuckySpin.Services.TextTransform>();
-builder.Services.AddSingleton<LuckySpin.Services.Repository>();
-
+builder.Services.AddDbContext<LuckySpin.Services.LuckySpinContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("LuckySpinDbMac")));
+builder.Services.AddScoped<LuckySpin.Services.Repository>();
 
 var app = builder.Build();
 

@@ -7,7 +7,10 @@ namespace LuckySpin.Models
         Random random = new Random();
         private int[] numbers; //a spin array;
 
-        //TODO: Add another property to hold the player balance after spin is completed
+        public int Id { get; set; }
+        //Add a GameId property to link this Spin to the Game who made it (Foreign Key)
+        public int GameId { get; set; } //Foreign Key to the Game who made this Spin
+        public Game Game { get; set; } //Navigation property to the Game that contains this Spin
         public decimal RunningBalance { get; set; }
         //Constructor
         public Spin()

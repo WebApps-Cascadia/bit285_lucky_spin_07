@@ -3,9 +3,10 @@ namespace LuckySpin.Models
 {
     public class Player
     {
+        public int Id { get; set; }
 
         [Required(ErrorMessage ="Name is required")]
-        public required string FirstName { get; set; }
+        public string FirstName { get; set; }
 
         [Range(1,9, ErrorMessage = "Choose a number, 1-9")]
         public int Luck { get; set; }

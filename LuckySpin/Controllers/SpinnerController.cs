@@ -6,12 +6,7 @@ namespace LuckySpin.Controllers
 {
     public class SpinnerController : Controller
     {
-        /**
-         * DIJ in 4 STEPS -
-         * (0) Registers the Repository class as a service in Program.cs 
-         * (1) adds an instance variable here of type Repository
-         * (2) In the Constructor, calls for a DIJ Repository object to be passed to the constructor
-         **/
+        //DIJ Repository and DbContext objects
         private LuckySpinContext _dbContext; // the database context provides access to the database records for Players and Games
         private Repository _repository; // the repository provides access to the Games Spins
         //Constructor with DIJ Repository object
@@ -34,19 +29,17 @@ namespace LuckySpin.Controllers
         {
             if(!ModelState.IsValid) { return View(); }
 
-            //TODO: Store the player in the repository
+            //Stores the player in the repository
             _dbContext.Players.Add(player);
-            _dbContext.SaveChanges();
-            //TODO:Create a new Game with this Player and store it in the repository
             var game = new Game(){ 
                 Player = player
             };
             _dbContext.Games.Add(game);
-            _dbContext.SaveChanges();
-            //TODO: Start the Game
+            _dbContext.SaveChanges(); //Only after saving changes to the database will the Game have an Id, which is needed to link the Game to the Spins in the next Action
+
             game.Start();
 
-            return RedirectToAction("Spin", new{gameId = game.Id}); //TODO:Redirect to the Spin Action, passing the Game as a parameter
+            return RedirectToAction("Spin", new{gameId = game.Id}); //Redirect to the Spin Action, passing the Game as a parameter
         }
 
         /***
@@ -54,9 +47,9 @@ namespace LuckySpin.Controllers
          **/       
         public IActionResult Spin(int gameId)
         {
-            Game Game = _repository.getGame(gameId); //TODO: Get the Game from the repository to ensure you have the most up to date version of the Game with all the Spins
+            Game Game = _repository.getGame(gameId); // Get sthe Game from the repository to ensure you have the most up to date version of the Game with all the Spins
             //Plays a turn with a new Spin
-            Spin spin = new Spin() { Game = Game, GameId = Game.Id }; //TODO: Create a new Spin, setting the Game and GameId properties to link it to the current Game
+            Spin spin = new Spin() { Game = Game, GameId = Game.Id }; //Creates a new Spin, setting the Game and GameId properties to link it to the current Game
             Game.PlayTurn(spin);
             Game.Spins.Add(spin);
             _dbContext.SaveChanges();
@@ -64,7 +57,7 @@ namespace LuckySpin.Controllers
             //.     if so, redirect to the LuckList Action to show the list of spins
             if (Game.Status == GameStatus.GameOver) 
             {
-                return RedirectToAction("LuckList", new {gameId = gameId}); //TODO:Redirect to the LuckList Action, passing the Game as a parameter
+                return RedirectToAction("LuckList", new {gameId = gameId}); 
             }
             return View("Spin", Game); //TODO:Pass the Game to the Spin View to show the current game results
         }

@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<LuckySpin.Services.TextTransform>();
 builder.Services.AddDbContext<LuckySpin.Services.LuckySpinContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("LuckySpinDbMac")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("LuckySpinDb")));
 builder.Services.AddScoped<LuckySpin.Services.Repository>();
 
 var app = builder.Build();

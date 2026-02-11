@@ -29,23 +29,29 @@ namespace LuckySpin.Models
         //      Run Unit Tests to check
         public void PlayTurn(Spin spin){
             Status = GameStatus.Spinning;
-            if (Player?.Balance >= PlayCost)
+            if (Player.Balance >= PlayCost)
             {
                 Player.Balance -= PlayCost;
-                spin.RunningBalance = Player.Balance;
 
                 if (spin.isWinning(Player))
                 {
                     Player.Balance += 1.0m;
                     Status = GameStatus.Won;
                 }
-
-                //AddSpin(spin);
+                else
+                {
+                    Status = GameStatus.Spinning;
+                }
+                spin.RunningBalance = Player.Balance;
+                if (Player.Balance < PlayCost)
+                {
+                    Status = GameStatus.GameOver;
+                }
             }
             else
             {
                 Status = GameStatus.GameOver;
-            }
+            } 
         }
         //Game helper methods
         public void Start()
@@ -53,13 +59,8 @@ namespace LuckySpin.Models
             Reset();
             Status = GameStatus.Spinning;
         }
-        public void AddSpin(Spin s)
-        {
-            Spins.Add(s);
-        }
         public void Reset()
         {
-            Spins.Clear();
             Status = GameStatus.Idle;
         }
     }

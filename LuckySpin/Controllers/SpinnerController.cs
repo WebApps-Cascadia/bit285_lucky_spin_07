@@ -36,9 +36,7 @@ namespace LuckySpin.Controllers
             };
             _dbContext.Games.Add(game);
             _dbContext.SaveChanges(); //Only after saving changes to the database will the Game have an Id, which is needed to link the Game to the Spins in the next Action
-
-            game.Start();
-
+    
             return RedirectToAction("Spin", new{gameId = game.Id}); //Redirect to the Spin Action, passing the Game as a parameter
         }
 
@@ -47,19 +45,21 @@ namespace LuckySpin.Controllers
          **/       
         public IActionResult Spin(int gameId)
         {
-            Game Game = _repository.getGame(gameId); // Get sthe Game from the repository to ensure you have the most up to date version of the Game with all the Spins
-            //Plays a turn with a new Spin
+            Game Game = _repository.getGame(gameId); // Get the Game from the repository to ensure you have the most up to date version of the Game with all the Spins
+            //Spin away!
             Spin spin = new Spin() { Game = Game, GameId = Game.Id }; //Creates a new Spin, setting the Game and GameId properties to link it to the current Game
             Game.PlayTurn(spin);
             Game.Spins.Add(spin);
             _dbContext.SaveChanges();
-            //Checks to see if the game is done (HINT: Use the Game Status)
-            //.     if so, redirect to the LuckList Action to show the list of spins
-            if (Game.Status == GameStatus.GameOver) 
+
+            //Checks to see if the game is done, if not keep spinning
+            //  if so, redirect to the LuckList Action to show the list of spins
+            if (Game.Status != GameStatus.GameOver)
             {
-                return RedirectToAction("LuckList", new {gameId = gameId}); 
+                return View("Spin", Game); //Keep Playing
             }
-            return View("Spin", Game); //TODO:Pass the Game to the Spin View to show the current game results
+            
+            return RedirectToAction("LuckList", new {gameId = gameId}); 
         }
 
         /***

@@ -19,8 +19,10 @@ namespace LuckySpin.Models
         }
 
         //Spin Properties
-        public int[] Numbers //Read only - the spin numbers are set in the constructor
+        public int[] Numbers //the spin numbers are set in the constructor
         { 
+            //TODO: Uncomment the line below to Change the Model
+            //set { numbers = value; } // adding the set accessor makes the DbContext take note of this as a column.
             get { return numbers; }
         } 
      

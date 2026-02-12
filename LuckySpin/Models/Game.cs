@@ -12,20 +12,21 @@ namespace LuckySpin.Models
     **/
     public class Game
     {
-        //Instance Variables
-        //private List<Spin> _spins = new List<Spin>(); //NOTE: This is an in-memory list of spins
-
-
-        //Game Properties
-        public int Id { get; set; }
-        public Player? Player { get; set; } //The Player playing this Game
-        public ICollection<Spin> Spins { get; set; } = new List<Spin>(); //The list of Spins for this Game
-
-        public decimal PlayCost { //Read only - the cost to play a spin
+        //Instance Variabless
+        private decimal PlayCost { //Read only - the cost to play a spin
             get { return 0.50m; }
         }
+
+        //Game Model Properties
+        public int Id { get; set; }
         public GameStatus Status { get; set; } = GameStatus.Idle;
-        //TODO: Implement the PlayTurn Method as shown in Figure 1. Be sure to set Game Status appropriately
+        //Game Navigation properties
+        public int PlayerId { get; set; } //Foreign Key to the Player who is playing this Game
+        public Player Player { get; set; } //Navigation property to the Player who is playing this Game
+        public ICollection<Spin> Spins { get; set; }  //The list of Spins for this Game
+
+        //Methods
+        // Implement the PlayTurn Method as shown in Figure 1. Be sure to set Game Status appropriately
         //      Run Unit Tests to check
         public void PlayTurn(Spin spin){
             Status = GameStatus.Spinning;
@@ -47,6 +48,7 @@ namespace LuckySpin.Models
                 {
                     Status = GameStatus.GameOver;
                 }
+                Spins.Add(spin);
             }
             else
             {

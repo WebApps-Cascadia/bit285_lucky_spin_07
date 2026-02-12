@@ -19,8 +19,8 @@ namespace LuckySpin.Models
         public decimal RunningBalance { get; set; }   
         public int[] Numbers //the spin numbers are set in the constructor
         { 
-            //TODO: Uncomment the line below to Change the Model
-            set { numbers = value; } // adding the set accessor makes the DbContext take note of this as a column.
+            //TODO: Uncomment the line below to Change the Model - adding the set accessor makes the DbContext take note of this as a column.
+            //set { numbers = value; } 
             get { return numbers; }
         } 
 

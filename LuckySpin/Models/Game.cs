@@ -23,7 +23,7 @@ namespace LuckySpin.Models
         //Game Navigation properties
         public int PlayerId { get; set; } //Foreign Key to the Player who is playing this Game
         public Player Player { get; set; } //Navigation property to the Player who is playing this Game
-        public ICollection<Spin> Spins { get; set; }  //The list of Spins for this Game
+        public ICollection<Spin> Spins { get; set; } = new List<Spin>(); //The list of Spins for this Game
 
         //Methods
         // Implement the PlayTurn Method as shown in Figure 1. Be sure to set Game Status appropriately
@@ -48,7 +48,7 @@ namespace LuckySpin.Models
                 {
                     Status = GameStatus.GameOver;
                 }
-                Spins.Add(spin);
+
             }
             else
             {
